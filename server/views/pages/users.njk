@@ -19,7 +19,7 @@
     <h1 class="govuk-heading-l">Users</h1>
 
     <form method="post" action="/users" novalidate>
-      <input type="hidden" name="_csrf" value="{{ crsToken}}">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
       {{ govukInput({
         id: "username",
