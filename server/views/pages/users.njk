@@ -1,0 +1,68 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% set pageTitle = applicationName + " - Users" %}
+{% set mainClasses = "govuk-body" %}
+
+{% block content %}
+
+   {% if errors.length %}
+     {{ govukErrorSummary({
+       titleText: "There is a probelm",
+       errorList: errors
+     }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">Users</h1>
+
+    <form method="post" action="/users" novalidate>
+      <input type="hidden" name="_csrf" value="{{ crsToken}}">
+
+      {{ govukInput({
+        id: "username",
+        name: "username",
+        lable: { text: "Username"},
+        value: form.username
+      }) }}
+
+      {{ govukInput({
+        id: "email",
+        name: "email",
+        type: "email",
+        lable: { text: "Email Address"},
+        value: form.email
+      }) }}
+
+      {{ govukButton ({ text: "Add user", preventDoubleClick: true }) }}
+    </form>
+
+    {% if users.length %}
+      <table class="govuk-table" data-qa="users-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">ll users</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">ID</th>
+            <th scope="col" class="govuk-table__header">Username</th>
+            <th scope="col" class="govuk-table__header">Email</th>
+            <th scope="col" class="govuk-table__header">Created</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for user in users %}
+            <tr class="govuk-table__row">
+              <tr class="govuk-table__cell">{{ user.userId }}</tr>
+              <tr class="govuk-table__cell">{{ user.username }}</tr>
+              <tr class="govuk-table__cell">{{ user.email }}</tr>
+              <tr class="govuk-table__cell">{{ user.createdAt }}</tr>
+            </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="govuk-body" data-qa="no-users">No users have been added yet.</p>
+    {% endif %}
+
+{% endblock %}
