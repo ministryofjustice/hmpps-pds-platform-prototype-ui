@@ -19,7 +19,7 @@
     <h1 class="govuk-heading-l">Users</h1>
 
     <form method="post" action="/users" novalidate>
-      <input type="hidden" name="_csrf" value="{{ crsToken}}">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
       {{ govukInput({
         id: "username",
@@ -53,10 +53,10 @@
         <tbody class="govuk-table__body">
           {% for user in users %}
             <tr class="govuk-table__row">
-              <tr class="govuk-table__cell">{{ user.userId }}</tr>
-              <tr class="govuk-table__cell">{{ user.username }}</tr>
-              <tr class="govuk-table__cell">{{ user.email }}</tr>
-              <tr class="govuk-table__cell">{{ user.createdAt }}</tr>
+              <td class="govuk-table__cell">{{ user.userId }}</td>
+              <td class="govuk-table__cell">{{ user.username }}</td>
+              <td class="govuk-table__cell">{{ user.email }}</td>
+              <td class="govuk-table__cell">{{ user.createdAt }}</td>
             </tr>
         {% endfor %}
         </tbody>
