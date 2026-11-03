@@ -29,10 +29,10 @@ export default class UsersApiClient extends RestClient {
   }
 
   updateUser(userId: number, user: CreateUserRequest) {
-    return this.put<User>({ path: `/users${userId}`, data: { ...user } }, asSystem())
+    return this.put<User>({ path: `/users/${userId}`, data: { ...user } }, asSystem())
   }
 
   deleteUser(userId: number) {
-    return this.delete({ path: `/users${userId}` }, asSystem())
+    return this.delete({ path: `/users/${userId}` }, asSystem())
   }
 }
