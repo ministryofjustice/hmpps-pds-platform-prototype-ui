@@ -10,4 +10,12 @@ export default class UsersService {
   createUser(user: CreateUserRequest) {
     return this.usersApiClient.createUser(user)
   }
+
+  updateUser(userId: number, user: CreateUserRequest) {
+    return this.usersApiClient.updateUser(userId, user)
+  }
+
+  deleteUser(userId: number) {
+    return this.usersApiClient.deleteUser(userId)
+  }
 }
