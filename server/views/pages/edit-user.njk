@@ -1,0 +1,43 @@
+{% extends "../partials/layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% set pageTitle = applicationName + " - Edit user" %}
+{% set mainClasses = "govuk-body" %}
+
+{% block content %}
+
+  {% if errors.length %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errors
+    }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-l">Edit user</h1>
+
+  <form method="post" action="/users/{{ user.userId }}/edit" novalidate>
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+    {{ govukInput({
+      id: "username",
+      name: "username",
+      label: { text: "Username" },
+      value: form.username
+    }) }}
+
+    {{ govukInput({
+      id: "email",
+      name: "email",
+      type: "email",
+      label: { text: "Email address" },
+      value: form.email
+    }) }}
+
+    {{ govukButton({ text: "Save changes", preventDoubleClick: true }) }}
+    <a class="govuk-link" href="/users">Cancel</a>
+  </form>
+
+{% endblock %}

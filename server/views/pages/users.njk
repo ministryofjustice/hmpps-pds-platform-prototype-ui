@@ -11,7 +11,7 @@
 
    {% if errors.length %}
      {{ govukErrorSummary({
-       titleText: "There is a probelm",
+       titleText: "There is a probelem",
        errorList: errors
      }) }}
     {% endif %}
@@ -24,7 +24,7 @@
       {{ govukInput({
         id: "username",
         name: "username",
-        lable: { text: "Username"},
+        lable: { text: "Username" },
         value: form.username
       }) }}
 
@@ -32,7 +32,7 @@
         id: "email",
         name: "email",
         type: "email",
-        lable: { text: "Email Address"},
+        lable: { text: "Email Address" },
         value: form.email
       }) }}
 
@@ -41,13 +41,14 @@
 
     {% if users.length %}
       <table class="govuk-table" data-qa="users-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">ll users</caption>
+        <caption class="govuk-table__caption govuk-table__caption--m">All users</caption>
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header">ID</th>
             <th scope="col" class="govuk-table__header">Username</th>
             <th scope="col" class="govuk-table__header">Email</th>
             <th scope="col" class="govuk-table__header">Created</th>
+            <th scope="col" class="govuk-table__header">Actions</th>
           </tr>
         </thead>
         <tbody class="govuk-table__body">
@@ -57,6 +58,13 @@
               <td class="govuk-table__cell">{{ user.username }}</td>
               <td class="govuk-table__cell">{{ user.email }}</td>
               <td class="govuk-table__cell">{{ user.createdAt }}</td>
+              <td class="govuk-table__cell table-actions">
+                <a class="govuk-link" href="/users/{{ user.userId }}/edit">Edit<span class="govuk-visually-hidden"> {{ user.username }}</span></a>
+                <form method="post" action="/users/{{ user.userId }}/delete" class="table-actions__form">
+                  <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                  <button type="submit" class="table-actions__delete">Delete<span class="govuk-visually-hidden"> {{ user.username }}</span></button>
+                </form>
+              </td>
             </tr>
         {% endfor %}
         </tbody>
